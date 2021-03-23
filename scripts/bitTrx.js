@@ -3,8 +3,9 @@
 	var bitjs = window.bitjs = function () { };
 
 	/* public vars */
-	bitjs.pub = 0x7D;
-	bitjs.priv = 0xFD;
+	bitjs.pub    = PUBKEY_ADDRESS.toString(16);
+	bitjs.script = SCRIPT_ADDRESS.toString(16);
+	bitjs.priv   = SECRET_KEY.toString(16);
 	bitjs.compressed = true;
 
 	/* provide a privkey and return an WIF  */
