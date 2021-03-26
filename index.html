@@ -139,7 +139,7 @@
               <br>
               <div id='generateVanityWallet'>
                 <input style="display:none;" type="text" id='prefix' placeholder="Address Prefix">
-                <button onclick="generateVanityWallet()">Create A Vanity Wallet</button>
+                <button onclick="generateVanityWallet()">Create A Vanity Wallet<br>(experimental!)</button>
               </div>
               <br>
               <button id='wToggle' onclick='toggleWallet()'>Access My Wallet</button>
@@ -304,6 +304,7 @@
       <div style='display:inline;' id='dcfooter'></div>
     </div>
   </div>
+  <!-- Functional Libraries (Cryptography, Hashing, Encryption, Encoding, etc) -->
   <script type="text/javascript" src="scripts/libs/aes-gcm.js"></script>
   <script type="text/javascript" src="scripts/libs/crypto-min.js"></script>
   <script type="text/javascript" src="scripts/libs/crypto-sha256.js"></script>
@@ -315,6 +316,10 @@
   <script type="text/javascript" src="scripts/libs/qrcode.js"></script>
   <script type="text/javascript" src="scripts/libs/sha256.js"></script>
 
+  <!-- Core Libraries (Script OPCodes, etc) -->
+  <script type="text/javascript" src="scripts/libs/core-lib/script.js"></script>
+
+  <!-- Interface Framework Libraries (GUI, wallet management, networking, etc) -->
   <script type="text/javascript" src="scripts/settings.js"></script>
   <script type="text/javascript" src="scripts/wallet.js"></script>
   <script type="text/javascript" src="scripts/network.js"></script>
@@ -513,13 +518,13 @@
 
       if (address != '' && value != '') {
         calculatefee(trx.serialize().length);
-        trx.addoutput(address, value);//Sending to this address
+        trx.addoutput(address, value); //Sending to this address
         addresschange = publicKeyForNetwork;
         totalSent = (parseFloat(fee) + parseFloat(value)).toFixed(8);
         valuechange = (parseFloat(txValue) - parseFloat(totalSent)).toFixed(8);
         if (totalSent <= balance) {
           document.getElementById("HumanReadable").innerHTML = "Balance: " + balance.toFixed(8) + "<br>Fee: " + fee + "<br>To: " + address + "<br>Sent: " + value.toFixed(8) + "<br>Change Address: " + addresschange + "<br>Change: " + valuechange;
-          trx.addoutput(addresschange, valuechange);//Change Address
+          trx.addoutput(addresschange, valuechange); //Change Address
           if (typeof privateKeyForTransactions !== 'undefined') {
             var wif = privateKeyForTransactions;
             sendTransaction(trx.sign(wif, 1));

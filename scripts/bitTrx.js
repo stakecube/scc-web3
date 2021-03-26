@@ -108,12 +108,24 @@
 			var buf = [];
 			var addrDecoded = btrx.addressDecode(address);
 			o.value = new BigInteger('' + Math.round((value * 1) * 1e8), 10);
-			buf.push(118); // OP_DUP
-			buf.push(169); // OP_HASH160
+			buf.push(SCRIPT.OP_DUP);         // OP_DUP
+			buf.push(SCRIPT.OP_HASH160);     // OP_HASH160
 			buf.push(addrDecoded.length);
-			buf = buf.concat(addrDecoded); // address in bytes
-			buf.push(136); // OP_EQUALVERIFY
-			buf.push(172); // OP_CHECKSIG
+			buf = buf.concat(addrDecoded);   // address in bytes
+			buf.push(SCRIPT.OP_EQUALVERIFY); // OP_EQUALVERIFY
+			buf.push(SCRIPT.OP_CHECKSIG);    // OP_CHECKSIG
+			console.log("Normal Output:");
+			console.log(buf);
+			o.script =   buf;
+			return this.outputs.push(o);
+		}
+
+		btrx.addoutputburn = function(value, data) {
+			var o = {};
+			var buf = getScriptForBurn(data);
+			o.value = new BigInteger('' + Math.round((value * 1) * 1e8), 10);
+			console.log("Burn Output:");
+			console.log(buf);
 			o.script =   buf;
 			return this.outputs.push(o);
 		}
