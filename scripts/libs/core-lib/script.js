@@ -150,6 +150,7 @@ function getScriptForBurn(data) {
     if (typeof data === "string" && data.length > 0) {
         let bData = new TextEncoder().encode(data);
         cScript.push(SCRIPT.OP_RETURN);
+        cScript.push(SCRIPT.OP_PUSHDATA1);
         // Append the byte array length
         cScript.push(bData.length);
         // Convert from uint8 to array and append the byte array
